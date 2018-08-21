@@ -3,7 +3,7 @@
     <div class="listView-wrapper">
       <div v-for="item in data" ref="listGroup">
         <h2 class="title">{{item.title}}</h2>
-        <ul>
+        <ul class="list-ul">
           <li v-for="item1 in item.dataAry" class="li-item">
             <img v-lazy="item1.avatar" alt="">
             <p class="name">{{item1.name}}</p>
@@ -38,7 +38,7 @@
       padding-left: 20px;
       background-color: #333;
     }
-    ul{
+    .list-ul{
       padding-bottom: 20px;
     }
     .li-item {
@@ -74,7 +74,7 @@
       text-align: center;
       border-radius: 10px;
       li {
-        line-height: 20px;
+        line-height: 18px;
         font-size: @font-size-small;
         color: @color-text-l;
       }

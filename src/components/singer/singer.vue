@@ -1,6 +1,9 @@
 <template>
   <div class="singer">
     <listView :data="singerList"></listView>
+    <div class="loading-wrapper" v-show="!singerList.length">
+      <loading></loading>
+    </div>
   </div>
 </template>
 <style lang="less" scoped>
@@ -9,6 +12,12 @@
   top: 88px;
   bottom: 0;
   width: 100%;
+  .loading-wrapper{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
 }
 </style>
 <script>
@@ -16,7 +25,7 @@
   import {ERR_OK} from 'api/config';
   import singer from 'common/js/singer'
   import listView from 'component/listview/listview'
-
+  import loading from 'base/loading/loading'
   const HOTSINGERLIST_LEN = 10, HOTSINGERTITLE = '热门'
   export default {
     data() {
@@ -81,7 +90,8 @@
 
     },
     components:{
-      listView
+      listView,
+      loading
     }
   }
 </script>
