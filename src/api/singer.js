@@ -1,3 +1,4 @@
+//歌手接口
 import jsonp from 'common/js/jsonp'
 import {commonParams, options} from './config'
 

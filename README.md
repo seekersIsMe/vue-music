@@ -33,6 +33,11 @@ tip.
 * mounted
   * 模版编译/挂载之后，但是不保证组件已经在document中
   * 用watch监控data的变化，映射到dom的变化，需要做20ms的延时操作，像dom的获取
+  
+# vuex
+  * mapActions传参为数组
+  * mapGetters传参为数组
+  * mapMutations传参为对象
 > 这是一个音乐播放器
 
 ## Build Setup

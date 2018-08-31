@@ -1,6 +1,6 @@
 <template>
-  <div class="recommend-wrapper">
-    <scroll class="oneElement" :data="hotList">
+  <div class="recommend-wrapper" ref="recommend">
+    <scroll class="oneElement" :data="hotList" ref="recommendScroll">
       <div>
         <!--v-if确保数据拿到后，再去执行slider组件的钩子函数（mounted）-->
         <div class="slider-wrapper" v-if="slider.length">
@@ -15,7 +15,7 @@
         </div>
         <h2>热门歌单推荐</h2>
         <div class="hotRecommend-wrapper" v-if="hotList.length">
-          <div v-for="item in hotList" class="hot-item">
+          <div v-for="item in hotList" class="hot-item" @click="goToSongList(item)">
             <div class="icon">
               <img v-lazy="item.imgurl" alt="">
             </div>
@@ -30,6 +30,7 @@
         <loading></loading>
       </div>
     </scroll>
+    <router-view ></router-view>
   </div>
 </template>
 <style lang="less">
@@ -41,6 +42,7 @@
   bottom: 0;
   overflow: hidden;
   .oneElement{
+    position: relative;
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -100,7 +102,10 @@
   import slider from 'base/slider/slider';
   import scroll from 'base/scroll/scroll';
   import loading from 'base/loading/loading'
+  import {playlistMixin} from 'common/js/mixin'
+  import {mapMutations} from 'vuex'
 export default {
+  mixins:[playlistMixin],
     data(){
       return{
         slider:[],
@@ -108,6 +113,21 @@ export default {
       }
     },
   methods:{
+    ...mapMutations({
+      setDisc:'SET_DISC'
+    }),
+    goToSongList(item){
+      this.$router.push({
+        path:`/recommend/${item.dissid}`
+      })
+      this.setDisc(item)
+      console.log('歌单',item)
+    },
+    handlePlaylist(playList){
+      let bottom=playList.length>0?'60px':'';
+      this.$refs.recommend.style.bottom=bottom;
+      this.$refs.recommendScroll.refresh();
+    },
     _getRecommend(){
       getRecommend().then((result)=>{
         if(ERR_OK===result.code){

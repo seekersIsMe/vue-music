@@ -1,9 +1,10 @@
 <template>
   <div class="singer">
-    <listView :data="singerList"></listView>
+    <listView :data="singerList" @linkTO="selectSinger"></listView>
     <div class="loading-wrapper" v-show="!singerList.length">
       <loading></loading>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 <style lang="less" scoped>
@@ -26,6 +27,7 @@
   import singer from 'common/js/singer'
   import listView from 'component/listview/listview'
   import loading from 'base/loading/loading'
+  import {mapMutations} from 'vuex'
   const HOTSINGERLIST_LEN = 10, HOTSINGERTITLE = '热门'
   export default {
     data() {
@@ -37,11 +39,17 @@
       this._getSingerList();
     },
     methods: {
+      selectSinger(data){
+        console.log(data)
+        this.$router.push({
+          path:`/singer/${data.id}`
+        })
+        this.setSinger(data);
+      },
       _getSingerList() {
         getSingerList().then((result) => {
           if (ERR_OK === result.code) {
             this._normalSingerList(result.data.list);
-            console.log('歌手数据%o', this.singerList)
           }
         })
       },
@@ -87,6 +95,11 @@
           this.singerList=hot.concat(ret)
         }.bind(this))
       },
+      // 将自定义的setSinger方法和Mutations里面的定义的SET_SINGER方法做映射
+      ...mapMutations({
+        // 将自定义的setSinger方法和Mutations里面的定义的方法做映射
+        setSinger: 'SET_SINGER'
+      })
 
     },
     components:{

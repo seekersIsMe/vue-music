@@ -4,7 +4,7 @@
       <div v-for="item in data" ref="listGroup">
         <h2 class="title">{{item.title}}</h2>
         <ul class="list-ul">
-          <li v-for="item1 in item.dataAry" class="li-item">
+          <li v-for="item1 in item.dataAry" class="li-item" @click="onlinkTo(item1)">
             <img v-lazy="item1.avatar" alt="">
             <p class="name">{{item1.name}}</p>
           </li>
@@ -97,9 +97,10 @@
 </style>
 <script>
   import Scroll from 'base/scroll/scroll';
-
+  import {playlistMixin} from 'common/js/mixin'
   const HEIGHT = 18,TITLEH_HEIGHT=30;
   export default {
+    mixins:[playlistMixin],
     created() {
       //这个数据不需要做观测，所以不需要加到data和props中后会加get和set方法，做数据的绑定
       this.touch = {}
@@ -129,6 +130,14 @@
       }
     },
     methods: {
+      handlePlaylist(playList){
+        let bottom=playList.length>0?'60px':'';
+        this.$refs.listView.$el.parentNode.style.bottom=bottom;
+        this.$refs.listView.refresh();
+      },
+      onlinkTo(data){
+        this.$emit('linkTO', data)
+      },
       onListViewMove(pos) {
         this.scrollY=pos.y;
         if(pos.y>0){
@@ -151,7 +160,7 @@
         this.touch.y1 = begin.pageY;
         this.touch.beginIndex = index;
         this.currentIndex = index;
-        this.$refs.listView._toScrollElement(this.$refs.listGroup[index]);
+        this.$refs.listView.scrollToElement(this.$refs.listGroup[index]);
       },
       onShortCutTouchMove(e) {
         let move = e.touches[0];
@@ -159,7 +168,7 @@
         let gapIndex = (this.touch.y2 - this.touch.y1) / HEIGHT | 0,
           goToIndex = gapIndex + this.touch.beginIndex;
         this.currentIndex = goToIndex;
-        this.$refs.listView._toScrollElement(this.$refs.listGroup[goToIndex]);
+        this.$refs.listView.scrollToElement(this.$refs.listGroup[goToIndex]);
       },
       _computeHeight() {
         let heightList = [], accumulateHeight = [0];
@@ -175,6 +184,7 @@
         })
         this.accumulateHeight = accumulateHeight;
       }
+
     },
     watch: {
       //在data初始化的时候或者变化的时候计算各个groupList的高度累加,但是数据的变化映射到dom的变化时需要一定的时间

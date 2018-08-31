@@ -28,13 +28,20 @@ export default {
     }
   },
   mounted(){
-    this.$nextTick(()=>{
-      this.refreshScroll();
-      this.initScroll();
-    })
+    //其实这里做延时也不一定保证dom完全渲染
+    setTimeout(()=>{
+      this.$nextTick(()=>{
+        this.refreshScroll();
+        this.initScroll();
+      })
+    },20)
   },
   methods:{
     initScroll(){
+      //这里需要做下判断，有可能this.$refs.scroll还没有渲染出来
+      if(!this.$refs.scroll){
+        return
+      }
       this.scroll=new BScroll(this.$refs.scroll,{
         probeType:this.probeType,
         click:this.click
@@ -51,8 +58,15 @@ export default {
         this.scroll.refresh();
       }
     },
-    _toScrollElement(){
+    //将better-scroll的scrollTo和scrollToElement两个方法添加到该组件上，方便在外层组件中调用
+    scrollTo() {
+      this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+    },
+    scrollToElement() {
       this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
+    },
+    refresh(){
+      this.scroll && this.scroll.refresh()
     }
   },
   watch:{

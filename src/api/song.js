@@ -1,8 +1,9 @@
+//歌曲接口
 import {commonParams} from './config'
 import axios from 'axios'
 
 export function getLyric(mid) {
-  const url = '/api/lyric'
+  const url = '/lyric'
 
   const data = Object.assign({}, commonParams, {
     songmid: mid,
@@ -17,6 +18,7 @@ export function getLyric(mid) {
   return axios.get(url, {
     params: data
   }).then((res) => {
+    console.log('测试promise',typeof Promise)
     return Promise.resolve(res.data)
   })
 }

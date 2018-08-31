@@ -1,12 +1,19 @@
 <template>
 <div class="loading">
-  <img src="./loading.gif" alt="">
-  <p>{{title}}</p>
+  <div>
+    <img src="./loading.gif" alt="">
+    <p>{{title}}</p>
+  </div>
 </div>
 </template>
 <style lang="less" scoped>
   @import "../../common/less/const";
 .loading{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   font-size: 14px;
   color: @color-text-l;

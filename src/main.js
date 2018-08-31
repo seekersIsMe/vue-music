@@ -5,7 +5,7 @@ import router from './router'
 import fastclcik from 'fastclick'
 import 'common/less/index.less'
 import imgLazyload from 'vue-lazyload';
-
+import store from './store/index'
 Vue.use(imgLazyload,{
   error:require('common/image/default.png'),
   // loading:'./static/img/default.png',
@@ -16,6 +16,7 @@ fastclcik.attach(document.body);
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
