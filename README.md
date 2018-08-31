@@ -1,14 +1,14 @@
-# vue-mussic
+# vue-music
 
-1.fastclick 解决300ms
-2.babel-runtime 对es6做转义
-3.babel-polyfill  对es6的api做转义
+1. fastclick 解决300ms
+2. babel-runtime 对es6做转义
+3. babel-polyfill  对es6的api做转义
 
 
-tip.
-1.babel-polyfill 比较适合 自己的整个工程，底层也是core-js，能使用所有的新API。
-2.babel-runtime 适合库和框架，针对使用到的新API 会提出打包到 build 文件中。
-3.runtime 适合不修改对象自身的属性和方法，比如扩展一个方法， Object.assign, 而 polyfill 是整个打补丁，适合 String.propotype.include 这样的
+# tip.
+1. babel-polyfill 比较适合 自己的整个工程，底层也是core-js，能使用所有的新API。
+2. babel-runtime 适合库和框架，针对使用到的新API 会提出打包到 build 文件中。
+3. runtime 适合不修改对象自身的属性和方法，比如扩展一个方法， Object.assign, 而 polyfill 是整个打补丁，适合 String.propotype.include 这样的
 
 # better-scroll
 * 如果要实时监听scroll事件，需要将protype设置为3
