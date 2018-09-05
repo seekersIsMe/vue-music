@@ -54,4 +54,8 @@
   * mapGetters传参为数组
   * mapMutations传参为对象
 
-
+# Git
+ * 报错：
+  " ![rejected]  master->master(fetch first)  
+  error:failed to push some refs to 'https://github.com/xxx/xxx.git' "
+ * 原因：在网页上修改readme文件，所以要先pull 远端仓库的资源到本地资源，在解决冲突，进而add、commit、push
