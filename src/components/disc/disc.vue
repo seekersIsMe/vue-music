@@ -34,6 +34,7 @@ export default{
       this.$router.push('/recommend')
       return
     }
+    console.log('ahaha')
     getSongList(this.disc.dissid).then((result)=>{
       if(result.code===ERR_OK){
         this.songList=this.getMusicData(result.cdlist[0].songlist)

@@ -9,7 +9,7 @@ const state={
   sequenceList:[],//顺序播放列表，原始列表
   currentIndex: -1,//播放歌曲在当前列表中的index索引，
   favoriteList: loadFavorite(),
-  disc:{},
-  topList:{}
+  disc:{},//推荐页面歌单详情
+  topList:{}//排行榜列表
 }
 export default state

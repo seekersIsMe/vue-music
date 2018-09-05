@@ -1,3 +1,4 @@
+<!--播放列表中只有一首歌曲的时候有bug-->
 <template>
   <div class="player" v-show="playlist&&playlist.length>0">
     <transition name="normal">
@@ -560,6 +561,7 @@
       },
       getLyric() {
         this.currentSong.getLyric().then((res) => {
+          //防止快速切换歌曲时，歌词乱掉，歌词请求是异步
           if (this.currentSong.lyric !== res) {
             return
           }
@@ -636,32 +638,41 @@
           return
         }
         const len = this.playlist.length;
-        if (this.currentIndex === 0) {
-          this.setCurrentIndex(len - 1)
-        } else {
-          this.setCurrentIndex(this.currentIndex - 1)
+        if(len>1){
+          if (this.currentIndex === 0) {
+            this.setCurrentIndex(len - 1)
+          } else {
+            this.setCurrentIndex(this.currentIndex - 1)
+          }
+          //当播放状态为暂停时，切换歌曲时改变了currentIndex，进而改变currentSong，进而播放歌曲，
+          // 但是state里面的playing状态没有更新过来
+          if (!this.playing) {
+            this.switchSong()
+          }
+          this.songReady = false;
+        }else {
+          this.loop()
         }
-        //当播放状态为暂停时，切换歌曲时改变了currentIndex，进而改变currentSong，进而播放歌曲，
-        // 但是state里面的playing状态没有更新过来
-        if (!this.playing) {
-          this.switchSong()
-        }
-        this.songReady = false;
       },
       nextSong() {
         if (!this.songReady) {
           return
         }
         const len = this.playlist.length;
-        if (this.currentIndex === len - 1) {
-          this.setCurrentIndex(0)
-        } else {
-          this.setCurrentIndex(this.currentIndex + 1)
+        if(len>1){
+          if (this.currentIndex === len - 1) {
+            this.setCurrentIndex(0)
+          } else {
+            this.setCurrentIndex(this.currentIndex + 1)
+          }
+          if (!this.playing) {
+            this.switchSong()
+          }
+          this.songReady = false;
+        }else {
+          this.loop()
         }
-        if (!this.playing) {
-          this.switchSong()
-        }
-        this.songReady = false;
+
       },
       loop() {
         this.$refs.player.currentTime = 0;
@@ -719,8 +730,10 @@
       //Uncaught (in promise) DOMException: The play() request was interrupted by a new load request
       //
       currentSong(newSong, oldSong) {
-        if (newSong.id === oldSong.id) {
-          return
+        if(this.playlist.length>1){
+          if (newSong.id === oldSong.id) {
+            return
+          }
         }
         if (this.currentLyric) {
           this.currentLyric.stop()
@@ -729,6 +742,7 @@
           this.currentLineNum = 0
         }
         clearTimeout(this.timer)
+        //防止快速切换歌曲、应用切到后台
         this.timer = setTimeout(() => {
           this.$nextTick(()=>{
             this.$refs.player.play()

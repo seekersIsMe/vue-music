@@ -1,14 +1,28 @@
-# vue-mussic
+> **高仿qq音乐播放器**
 
-1.fastclick 解决300ms
-2.babel-runtime 对es6做转义
-3.babel-polyfill  对es6的api做转义
+# 插件
+1. better-scroll滚动插件
+2. vue-lazyload图片懒加载
+3. fastclick移动端点击
+4. lyric-parser歌词播放插件
+5. jsonp请求插件 jsonp
+6. js-base64 base64数据转码 
+7. good-storage localstorage本地缓存
+8. vconsole 移动端调试工具
+9. create-keyframe-animation js实现css3动画
+10. 抓包工具
+    * 苹果：charles;
+    * 安卓 ：AndroidHttpCapture安装包
+    * window:Fiddler
+    
+# tip
 
-
-tip.
-1.babel-polyfill 比较适合 自己的整个工程，底层也是core-js，能使用所有的新API。
-2.babel-runtime 适合库和框架，针对使用到的新API 会提出打包到 build 文件中。
-3.runtime 适合不修改对象自身的属性和方法，比如扩展一个方法， Object.assign, 而 polyfill 是整个打补丁，适合 String.propotype.include 这样的
+* fastclick 解决300ms
+* babel-runtime 对es6做转义
+* babel-polyfill  对es6的api做转义
+  1 babel-polyfill 比较适合 自己的整个工程，底层也是core-js，能使用所有的新API。
+  2. babel-runtime 适合库和框架，针对使用到的新API 会提出打包到 build 文件中。
+  3. runtime 适合不修改对象自身的属性和方法，比如扩展一个方法， Object.assign, 而 polyfill 是整个打补丁，适合 String.propotype.include 这样的
 
 # better-scroll
 * 如果要实时监听scroll事件，需要将protype设置为3
@@ -38,22 +52,5 @@ tip.
   * mapActions传参为数组
   * mapGetters传参为数组
   * mapMutations传参为对象
-> 这是一个音乐播放器
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

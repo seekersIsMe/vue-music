@@ -12,6 +12,7 @@ export const mode = state => state.mode
 export const currentIndex = state => state.currentIndex
 
 export const currentSong = (state) => {
+  console.log('状态',state)
     return state.playList[state.currentIndex] || {}
 
 }

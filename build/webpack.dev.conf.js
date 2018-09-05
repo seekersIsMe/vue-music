@@ -95,6 +95,25 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e)
         })
       })
+      //获取搜索列表，qq音乐的这个接口有些问题
+      app.get('/getSearchList', function (req, res) {
+        //以下三个是pc端搜索接口
+        // var url = 'https://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg' //根据关键字获取搜索列表
+        // var url = 'https://c.y.qq.com/soso/fcgi-bin/client_search_cp' //
+        // var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg' //点击搜索列表中的歌曲，跳转到歌曲详情页面
+        var url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp' //移动端qq音乐搜索接口
+        axios.get(url, {
+          headers: {
+            referer: 'https://y.qq.com/',
+            host: 'y.qq.com'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
     },
     clientLogLevel: 'warning',
     historyApiFallback: {

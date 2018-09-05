@@ -84,7 +84,16 @@ const myRouter = new Router({
       component: Search,
       meta: {
         title: '搜索'
-      }
+      },
+      children:[
+        {
+          path:':id',
+          component:singerDetail,
+          meta:{
+            title:'歌手列表'
+          }
+        },
+      ]
     },
     {
       path: '/user',

@@ -1,7 +1,7 @@
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
+//随机数组，洗牌算法
 export function shuffle(arr) {
   let _arr = arr.slice()
   for (let i = 0; i < _arr.length; i++) {
@@ -24,4 +24,17 @@ export function debounce(func, delay) {
       func.apply(this, args)
     }, delay)
   }
+}
+//节流函数
+export  function throttle(fun,time) {
+   let timer;
+   //返回的函数在其他异步代码中执行
+   return function(...args){
+     if(timer){
+       clearTimeout(timer)
+     }
+      timer=setTimeout(function(){
+        fun.apply(this, args);
+      },time)
+   }
 }

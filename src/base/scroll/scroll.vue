@@ -1,3 +1,5 @@
+<!--使用注意-->
+<!--1.scroll的高度要小于其子元素-->
 <template>
 <div ref="scroll">
   <slot></slot>

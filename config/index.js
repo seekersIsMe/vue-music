@@ -35,7 +35,7 @@ module.exports = {
 
     cssSourceMap: true
   },
-
+  port: 9000,
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),

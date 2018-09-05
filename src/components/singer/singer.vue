@@ -44,6 +44,7 @@
         this.$router.push({
           path:`/singer/${data.id}`
         })
+        console.log(data)
         this.setSinger(data);
       },
       _getSingerList() {

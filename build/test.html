@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="app">
+</body>
+<script>
+  window.onload=function () {
+    function throttle(fun,time) {
+      var timer;
+      return function(args){
+        if(timer){
+          clearTimeout(timer)
+        }
+        timer=setTimeout(function(){
+          fun.call(this, args);
+        },time)
+      }
+    }
+    document.getElementById('app').oninput=throttle(function(e){
+      console.log('ok')
+      console.log(e)
+      console.log(e.data)
+    },200)
+  }
+</script>
+</html>

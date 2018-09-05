@@ -31,3 +31,24 @@ export const randomPlay_ = function ({commit}, {list}) {
   commit(types.SET_FULL_SCREEN, true)
   commit(types.SET_PLAYING_STATE, true)
 }
+export const clickSearchSong=function ({commit,state},song) {
+  console.log('列表',state.sequenceList)
+  let playList=state.playList.slice()
+  let sequenceList=state.sequenceList.slice()
+  let currentIndex=state.currentIndex;
+  let currentSong=playList[currentIndex];
+  let index=findIndex(playList,song);
+  if(index!==-1){
+    // 插入一首歌
+    currentIndex=index;
+  }else{
+    currentIndex++;
+    playList.splice(currentIndex,0,song)
+  }
+  sequenceList.push(song)
+  commit(types.SET_PLAYLIST,playList)
+  commit(types.SET_SEQUENCE_LIST,sequenceList)
+  commit(types.SET_CURRENT_INDEX,currentIndex)
+  commit(types.SET_FULL_SCREEN, true)
+  commit(types.SET_PLAYING_STATE, true)
+}
