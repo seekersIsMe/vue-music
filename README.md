@@ -2,6 +2,7 @@
 > **高仿qq音乐播放器**
 
 # 插件
+
 1. better-scroll滚动插件
 2. vue-lazyload图片懒加载
 3. fastclick移动端点击
